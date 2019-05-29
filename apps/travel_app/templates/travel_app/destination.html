@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Destination</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link href="{% static 'login/css/styles.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+    <a href="/travel/" class="btn btn-dark" role="button">Home</a> | <a href="/logout" class="btn btn-dark" role="button">Logout</a>
+    <div>
+        <h2>{{ trip.destination }}</h2>
+        <p>Planned By: {{planner}}</p>
+        <p>Description: {{trip.plan}}</p>
+        <p>Travel Date From: {{trip.start_date}}</p>
+        <p>Travel Date To: {{trip.end_date}}</p>
+    </div>
+    <div>
+        <h3>Other Users Joining the Trip:</h3>
+        {% if others %}
+            {% for other in others %}
+                {% if other.id != request.session.id %}
+                    <p>{{other.name}}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+</body>
+
+</html>

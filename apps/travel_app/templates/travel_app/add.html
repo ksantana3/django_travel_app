@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link href="{% static 'login/css/styles.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+    <div>
+    <a href="/travel/" class="btn btn-dark" role="button">Home</a> | <a href="/logout" class="btn btn-dark" role="button">Logout</a>
+    <div class="add">
+        <br>
+        <h2>Add a Trip</h2>
+        <form action="/travel/process_trip" method="POST">
+            {% csrf_token %}
+            <label for="destination">Destination: </label>
+            {% for msg in messages %}
+                {% if 'destination error' == msg.tags %}
+                <p class="{{ msg.tags }} text-danger">
+                    {{ msg }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            <input type="text" name="destination"><br>
+            <label for="description">Description: </label>
+            {% for msg in messages %}
+                {% if 'description error' == msg.tags %}
+                <p class="{{ msg.tags }} text-danger">
+                    {{ msg }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            <input type="text" name="description"><br>
+            <label for="date_from">Travel Date From: </label>
+            {% for msg in messages %}
+                {% if 'date_from error' == msg.tags %}
+                <p class="{{ msg.tags }} text-danger">
+                    {{ msg }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            <input type="date" name="date_from"><br>
+            <label for="date_to">Travel Date To: </label>
+            {% for msg in messages %}
+                {% if 'date_to error' == msg.tags %}
+                <p class="{{ msg.tags }} text-danger">
+                    {{ msg }}
+                </p>
+                {% endif %}
+            {% endfor %}
+            <input type="date" name="date_to">
+            <input type="hidden" name="userid" value="{{request.session.user_id}}">
+            <input type="submit" value="Add">
+        </form>
+        
+    </div>
+    </div>
+</body>
+
+</html>
