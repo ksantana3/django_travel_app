@@ -21,7 +21,7 @@ class UserManager(models.Manager):
         if not form['password']:
             errors['password'] = 'Password cannot be blank'
         elif len(form['password']) < 8:
-            errors['password'] = 'Password must be atleast eight characters'
+            errors['password'] = 'Password must be at least eight characters'
         if form['confirm_password'] != form['password']:
             errors['confirm_password'] = 'Passwords do not match!'
         return errors
@@ -35,7 +35,7 @@ class UserManager(models.Manager):
         else:
             users = User.objects.filter(username=form['username'])
             if not users:
-                errors['login_username'] = 'This username doesnt exist. Please register!'
+                errors['login_username'] = 'This username doesn't exist. Please register!'
             elif not bcrypt.checkpw(form['pwd'].encode(), users[0].hashpw.encode()):
                 errors['pwd'] = 'Wrong password'
             return errors
